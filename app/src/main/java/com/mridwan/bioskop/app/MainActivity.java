@@ -5,7 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -18,11 +22,16 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setAdapter(new ImageAdapter(this));
 
-        Picasso.with(this)
-                .load("https://cms-assets.tutsplus.com/uploads/users/21/posts/19431/featured_image/CodeFeature.jpg")
-                .into(imageView);
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+                Toast.makeText(MainActivity.this, "" + position,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
